@@ -24,7 +24,7 @@ A aplicação testada é o **Serverest**, uma aplicação de exemplo para estudo
 
 ## Estrutura do Projeto
 
-```text
+```
 cypress/
  ├─ e2e/
  │   ├─ frontend.cy.js
@@ -33,8 +33,9 @@ cypress/
  ├─ support/
 cypress.config.js
 package.json
-reademe.md
+reademe.md 
 
+```
 Cenários de Teste – Frontend (E2E)
 Foram implementados os seguintes cenários de testes E2E para o frontend da aplicação:
 
@@ -62,6 +63,8 @@ Realiza o cadastro de um usuário
 Tenta cadastrar novamente utilizando o mesmo email
 
 Valida a exibição da mensagem de erro: "Este email já está sendo usado"
+
+---
 
 Cenários de Teste – API
 Foram implementados os seguintes cenários de testes automatizados para a API:
@@ -93,28 +96,37 @@ Valida status 401
 
 Valida mensagem de erro: "Email e/ou senha inválidos"
 
-Como Executar os Testes
+
+---
+
+Passso a passo de como Executar os Testes
 Pré-requisitos
 Node.js instalado
 
 Dependências do projeto instaladas
 
+```
 npm install
+```
 Executar o Cypress em modo interativo
+```
 npx cypress open
+```
 Executar o Cypress em modo headless
+```
 npx cypress run
+```
 Observações
-Os testes utilizam dados dinâmicos (Date.now()) para garantir independência entre execuções
+Os testes utilizam dados dinâmicos (Date.now()) para garantir independência entre execuções.
 
-Não são utilizados wait fixos, seguindo boas práticas do Cypress
+Não são utilizados wait fixos, seguindo boas práticas do Cypress.
 
-Os cenários simulam o comportamento real do usuário final
+Os cenários simulam o comportamento real do usuário final.
 
 Próximos Passos
-Refatorar os testes utilizando funções reutilizáveis (custom commands)
+Refatorar os testes utilizando funções reutilizáveis (custom commands).
 
-Implementar novos cenários de testes para API e frontend
+Implementar novos cenários de testes para API e frontend.
 
 Autor
 Paulo Augusto
