@@ -58,3 +58,39 @@ describe('API - Login de usuario', () => {
 
 })
 
+describe('API - Login inválido', () => {
+
+  it('Deve retornar erro ao tentar logar com senha inválida', () => {
+    const email = `paulo_${Date.now()}@qa.com`
+    const password = '123456'
+
+    // Cria usuário válido
+    cy.request({
+      method: 'POST',
+      url: 'https://serverest.dev/usuarios',
+      body: {
+        nome: 'Paulo Augusto',
+        email: email,
+        password: password,
+        administrador: 'true'
+      }
+    }).then((response) => {
+      expect(response.status).to.eq(201)
+    })
+
+    // Tenta login com senha errada
+    cy.request({
+      method: 'POST',
+      url: 'https://serverest.dev/login',
+      failOnStatusCode: false, 
+      body: {
+        email: email,
+        password: 'senha_errada'
+      }
+    }).then((response) => {
+      expect(response.status).to.eq(401)
+      expect(response.body.message).to.eq('Email e/ou senha inválidos')
+    })
+  })
+
+})
