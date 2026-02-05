@@ -6,9 +6,11 @@ describe('Cadastro de usuário', () => {
     cy.visit('https://front.serverest.dev')
 
     // Clica no botão cadastre-se
+    cy.get('[data-testid="cadastrar"]', { timeout: 10000 }).should('be.visible')
     cy.get('[data-testid="cadastrar"]').click()
 
     // Preenche os dados de cadastro
+    
     cy.get('[data-testid="nome"]').type('Paulo Augusto')
     cy.get('[data-testid="email"]').type(email)
     cy.get('[data-testid="password"]').type('123456')
@@ -42,5 +44,35 @@ describe('Login', () => {
 
     // Valida se login foi realizado com sucesso
     cy.url().should('include', '/home')    
+  })
+})
+
+describe('Cadastro de usuário - email já existente', () => {
+  it('Deve exibir erro ao tentar cadastrar usuário com email duplicado', () => {
+    const email = `paulo_${Date.now()}@qa.com`
+    const senha = '123456'
+
+    // Primeiro cadastro
+    cy.visit('https://front.serverest.dev')
+    cy.get('[data-testid="cadastrar"]').click()
+    cy.get('[data-testid="nome"]').type('Paulo Augusto')
+    cy.get('[data-testid="email"]').type(email)
+    cy.get('[data-testid="password"]').type(senha)
+    cy.get('[data-testid="cadastrar"]').click()
+
+    // Logout
+    cy.get('[data-testid="logout"]').click()
+
+    // Segundo cadastro com mesmo email
+    cy.get('[data-testid="cadastrar"]').click()
+    cy.get('[data-testid="nome"]').type('Paulo Augusto')
+    cy.get('[data-testid="email"]').type(email)
+    cy.get('[data-testid="password"]').type(senha)
+    cy.get('[data-testid="cadastrar"]').click()
+
+    cy.contains('Este email já está sendo usado', { timeout: 10000 })
+  .should('be.visible')
+
+    
   })
 })
